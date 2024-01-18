@@ -1,6 +1,12 @@
 -- 2-fans.sql
 
 -- Create a temporary table to store the results
-SELECT origin, nb_fans
-FROM metal_bands
-ORDER BY nb_fans DESC;
+CREATE TEMPORARY TABLE IF NOT EXISTS temp_results AS (
+    SELECT origin, COUNT(*) AS nb_fans
+    FROM bands
+    GROUP BY origin
+    ORDER BY nb_fans DESC
+);
+
+-- Select the results from the temporary table
+SELECT * FROM temp_results;
